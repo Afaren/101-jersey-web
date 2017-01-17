@@ -11,6 +11,6 @@
     </resultMap>
 
     <select id="findAll" resultMap="itemMap">
-        select * from item;
+        select * from items;
     </select>
 </mapper>

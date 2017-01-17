@@ -19,6 +19,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mybites/ItemMapper.xml"/>
+        <mapper resource="mybatis/ItemMapper.xml"/>
     </mappers>
 </configuration>
