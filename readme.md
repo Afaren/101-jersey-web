@@ -24,9 +24,9 @@
    ./gradlew jettyrun
    ```
 
-4. 在浏览器中测试 http://localhost:8080/jersey-mybaties-I
+4. 在浏览器中测试 http://localhost:8080/101-jersey-web/
 
-5. 在浏览器中测试 http://localhost:8080/jersey-mybaties-I/items 
+5. 在浏览器中测试 http://localhost:8080/101-jersey-web/items 
 
    ​
 
