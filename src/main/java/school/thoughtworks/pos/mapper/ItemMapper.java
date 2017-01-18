@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ItemMapper {
     List<Item> findAll();
+
+    Item find(int id);
 }

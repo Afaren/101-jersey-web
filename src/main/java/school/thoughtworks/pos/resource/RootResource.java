@@ -6,6 +6,7 @@ import school.thoughtworks.pos.mapper.ItemMapper;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -25,6 +26,7 @@ public class RootResource {
     public Response getRootInfo() {
         Map<String, String> result = new HashMap<>();
         result.put("items", "/items");
+        result.put("item", "/items/:id");   // 超媒体的格式是怎么写的,参考 github? 还是其他的地方有规范
 
         return Response.status(Response.Status.OK).entity(result).build();
     }
@@ -47,4 +49,20 @@ public class RootResource {
 
         return Response.status(Response.Status.OK).entity(result).build();
     }
+
+    @GET
+    @Path("/items/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getItem(@PathParam("id") int id) {
+        Item item = itemMapper.find(id);
+        if (null == item) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        Map result = new HashMap();
+        result.put("item", item.toMap());
+        return Response.status(Response.Status.OK).entity(result).build();
+
+
+    }
 }
+
