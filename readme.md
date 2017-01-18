@@ -37,12 +37,10 @@
 
 #### 基础篇
 1. 完成下列接口
-   ```
-   GET /items/:id	# 获取一个item
-   POST /items #增加一个item
-   DELETE /items/:id # 删除一个item
-   PUT /items/:id	# 更新一个item
-   ```
+  -  GET /items/:id		# 获取一个item    
+  -  POST /items		#增加一个item    
+  -  DELETE /items/:id  # 删除一个item   
+  -  PUT /items/:id		# 更新一个item    
 2. 创建 category 表，category 表与 item 表为一对多关系，并参照上面完成相应接口
 3. 创建 cart 表，cart 表与item 表为多对多关系，并参照上面完成相应接口
 4. 尽量用 stream 操作集合运算
