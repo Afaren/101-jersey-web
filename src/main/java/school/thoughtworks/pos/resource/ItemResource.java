@@ -16,14 +16,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Path("/")
-public class RootResource {
+public class ItemResource {
 
     @Inject
     private ItemMapper itemMapper;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRootInfo() {
+    public Response getItemInfo() {
         Map<String, String> result = new HashMap<>();
         result.put("items", "/items");
         result.put("item", "/items/:id");   // 超媒体的格式是怎么写的,参考 github? 还是其他的地方有规范
@@ -34,7 +34,7 @@ public class RootResource {
     @GET
     @Path("/items")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllItems() {
+    public Response findAll() {
         Map<String, Object> result = new HashMap<>();
 
         List<Item> originItems = itemMapper.findAll();
@@ -53,7 +53,7 @@ public class RootResource {
     @GET
     @Path("/items/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getItem(@PathParam("id") int id) {
+    public Response findOne(@PathParam("id") int id) {
         Item item = itemMapper.find(id);
         if (null == item) {
             return Response.status(Response.Status.NOT_FOUND).build();
