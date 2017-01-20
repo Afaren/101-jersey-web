@@ -1,13 +1,11 @@
 package school.thoughtworks.pos.resource;
 
+import org.apache.ibatis.session.SqlSession;
 import school.thoughtworks.pos.bean.Item;
 import school.thoughtworks.pos.mapper.ItemMapper;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
@@ -17,6 +15,10 @@ import java.util.stream.Collectors;
 
 @Path("/")
 public class ItemResource {
+
+    @Inject
+    private SqlSession session;
+
 
     @Inject
     private ItemMapper itemMapper;
@@ -64,5 +66,42 @@ public class ItemResource {
 
 
     }
-}
 
+// TODO: 1/18/17  what should return when delete a item???
+    @DELETE
+    @Path("/items/{id}")
+    public void deleteOne(@PathParam("id") int id) {
+        itemMapper.delete(id);
+        session.commit();
+    }
+
+// TODO: 1/20/17 if insert fail?
+    @POST
+    @Path("/items")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response insert(Item item) {
+        itemMapper.insert(item);
+        session.commit();
+        Map map = new HashMap<>();
+        map.put("url", "items/" + item.getId());
+        return Response.status(Response.Status.CREATED).entity(map).build();
+    }
+
+// TODO: 1/20/17 if update fail?
+
+    @PUT
+    @Path("/items/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response update(@PathParam("id") int id, Item item) {
+        item.setId(id);
+        itemMapper.update(item);
+        session.commit();
+        Map map = new HashMap<>();
+        map.put("url", "items/" + item.getId());
+        return Response.status(Response.Status.OK).entity(map).build();
+    }
+
+
+}

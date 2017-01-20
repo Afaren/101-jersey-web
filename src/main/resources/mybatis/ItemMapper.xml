@@ -17,4 +17,19 @@
     <select id="find" resultMap="itemMap">
         SELECT * FROM  items WHERE id = #{id}
     </select>
+
+    <delete id="delete" >
+        DELETE FROM items WHERE id = #{id}
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  >
+        INSERT INTO items(name, price) VALUES (#{name}, #{price})
+    </insert>
+
+    <update id="update">
+        UPDATE items SET
+          name = #{name},
+          price = #{price}
+        WHERE id = #{id}
+    </update>
 </mapper>
